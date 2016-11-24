@@ -105,19 +105,14 @@ class PyLightLine(object):
 
 
 # TODO: reenable loading of C optimised representation of GCode
-# try:
-# import gcoder_line
-#
-# Line = gcoder_line.GLine
-# LightLine = gcoder_line.GLightLine
-# except Exception as e:
-#     logging.warning("Memory-efficient GCoder implementation unavailable: %s" % e)
-#     Line = PyLine
-#     LightLine = PyLightLine
-
-Line = PyLine
-LightLine = PyLightLine
-
+try:
+    from gcodeutils import gcode_line
+    Line = gcode_line.GLine
+    LightLine = gcode_line.GLightLine
+except ImportError:
+    logging.warning("Memory-efficient GCoder implementation unavailable")
+    Line = PyLine
+    LightLine = PyLightLine
 
 def find_specific_code(line, code):
     exp = specific_exp % code

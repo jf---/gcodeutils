@@ -10,6 +10,7 @@ from setuptools import setup, find_packages
 # To use a consistent encoding
 from codecs import open
 from os import path
+from Cython.Build import cythonize
 
 here = path.abspath(path.dirname(__file__))
 
@@ -88,6 +89,8 @@ setup(
         'dev': ['check-manifest', 'pylint'],
         'test': ['nose'],
     },
+
+    ext_modules = cythonize("gcodeutils/gcode_line.pyx"),
 
     # If there are data files included in your packages that need to be
     # installed, specify them here.  If using Python 2.6 or less, then these
